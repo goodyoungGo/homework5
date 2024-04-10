@@ -32,8 +32,8 @@ int main(void){
     /* 행렬에 랜덤한 난수 값 할당 */
     for (int i = 0; i< row; i++){
         for(int j = 0; j<column;j++){
-            matrix_a[i][j] = rand()%9;  // 0~8 사이의 값을 행렬 A[i][j]에 할당
-            matrix_b[i][j] = rand()%9;  // 0~8 사이의 값을 행렬 B[i][j]에 할당
+            matrix_a[i][j] = rand()%9;  // 0~8까지의 값을 행렬 A[i][j]에 할당
+            matrix_b[i][j] = rand()%9;  // 0~8까지의 값을 행렬 B[i][j]에 할당
         }
     }
     
@@ -48,7 +48,6 @@ int main(void){
 
     /* 행렬 A X B  구현 및 출력 */
     multiply_matrix(matrix_a, matrix_b);
-
     
     /* 행렬 A, 행렬 B 동적 할당 해제 */
     free_matrix(matrix_a,0);
@@ -126,7 +125,7 @@ void free_matrix(int **matrix, int state){
     for (int i=0; i<num;i++){
         free(matrix[i]); // 각 행 동적할당된 메모리 해제
     }
-    free(matrix); // 메모리 heap 공간에 동적할당된 메모리 해제
+    free(matrix); // 전체 행렬에 대한 동적 할당 해제
 }
 
 void addition_matrix(int**matrix_a, int**matrix_b){
@@ -183,7 +182,7 @@ void multiply_matrix(int**matrix_a, int**matrix_b){
 }
 
 void transpose_matrix(int**matrix_a, int**matrix_b){
-    /* result matrix 동적 할당 함수 생성 */
+    /* A의 전치 행렬 생성 함수 */
     int**result_matrix = (int**)malloc(sizeof(int*) * column); // 행렬 result_matrix의 행에 대한 동적 할당
     for (int i = 0 ; i < column; i++){
         result_matrix[i] = (int*)malloc(sizeof(int)*row); // 행렬 result_matrix의 열에 대한 동적 할당
